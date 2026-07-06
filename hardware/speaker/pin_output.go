@@ -10,9 +10,14 @@ type pinOutput struct {
 	pwm *pin.PWM
 }
 
+const leftBufferIndex = 0
+const rightBufferIndex = 1
+
 func (speaker *pinOutput) normalizeCycleValue(buffer [2]float64, cycleLength uint32) uint32 {
-	sample := (buffer[0] + buffer[1]) * 0.5
-	return uint32((sample+1.0)*0.5*float64(cycleLength) + 0.5)
+	sample := (buffer[leftBufferIndex] + buffer[rightBufferIndex]) * 0.5
+	// Shift value from [-1,1] range to [0, 1] range
+	shiftedValue := (sample + 1.0) * 0.5
+	return uint32(shiftedValue*float64(cycleLength) + 0.5)
 }
 
 func (speaker *pinOutput) playSound(streamer beep.Streamer) {
