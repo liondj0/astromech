@@ -27,8 +27,10 @@ type Motor struct {
 
 func (motor *Motor) TurnSeconds(seconds int, direction Direction) {
 	if direction == Left {
+		motor.output.setLowRight()
 		motor.output.setHighLeft()
 	} else {
+		motor.output.setLowLeft()
 		motor.output.setHighRight()
 	}
 	time.Sleep(time.Duration(seconds*1000) * time.Millisecond)
