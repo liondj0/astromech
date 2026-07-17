@@ -15,7 +15,9 @@ func (d Digital) SetLow() {
 }
 
 func NewDigital(pin int) *Digital {
-	return &Digital{
+	d := &Digital{
 		pin: rpio.Pin(pin),
 	}
+	d.pin.Output()
+	return d
 }
