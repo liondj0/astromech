@@ -25,7 +25,7 @@ type Motor struct {
 	rpm    int
 }
 
-func (motor *Motor) TurnSeconds(seconds int, direction Direction) {
+func (motor *Motor) TurnMilliseconds(milliseconds int, direction Direction) {
 	if direction == Left {
 		motor.output.setLowRight()
 		motor.output.setHighLeft()
@@ -33,7 +33,7 @@ func (motor *Motor) TurnSeconds(seconds int, direction Direction) {
 		motor.output.setLowLeft()
 		motor.output.setHighRight()
 	}
-	time.Sleep(time.Duration(seconds*1000) * time.Millisecond)
+	time.Sleep(time.Duration(milliseconds) * time.Millisecond)
 	if direction == Left {
 		motor.output.setLowLeft()
 	} else {
@@ -46,9 +46,9 @@ func (motor *Motor) TurnDegrees(degrees int, direction Direction) {
 		println("Cannot turn less then 1 degree")
 		return
 	}
-	fullCircleMs := 60 / motor.rpm
-	degreesToMs := float64(fullCircleMs*degrees) / 360.0
-	motor.TurnSeconds(int(degreesToMs), direction)
+	fullCircleSeconds := 60 / motor.rpm
+	degreesToSeconds := float64(fullCircleSeconds*degrees) / 360.0
+	motor.TurnMilliseconds(int(degreesToSeconds*1000), direction)
 }
 
 func NewMotor(leftPin, rightPin, rpm int) *Motor {

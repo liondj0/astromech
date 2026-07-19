@@ -22,6 +22,7 @@ type Hardware struct {
 func InitHardware() *Hardware {
 	if err := rpio.Open(); err != nil {
 		println("failed to open speaker")
+		panic("Failed to init hardware")
 	}
 	return &Hardware{
 		Speaker:   speaker.NewSpeaker(speakerPinIndex),
