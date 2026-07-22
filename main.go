@@ -17,7 +17,7 @@ func main() {
 	hardware.HeadMotor.TurnDegrees(60, motor.Right)
 	time.Sleep(1 * time.Second)
 	println("Turning head left")
-	hardware.HeadMotor.TurnDegrees(12, motor.Left)
+	hardware.HeadMotor.TurnDegrees(120, motor.Left)
 	time.Sleep(1 * time.Second)
 	hardware.HeadMotor.TurnDegrees(60, motor.Right)
 }
